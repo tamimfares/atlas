@@ -22,8 +22,8 @@
 <body>
     <div id="app">
       @include('sweetalert::alert')
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary shadow-sm">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -74,8 +74,29 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @auth
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <a href="#" class="text-decoration-none">Posts</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="{{ route('categories.index') }}" class="text-decoration-none">Categories</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-8">
+                    @yield('content')
+                  </div>
+                </div>
+              </div>
+            @else
+              @yield('content')
+            @endauth
         </main>
     </div>
+    @yield('scripts')
 </body>
 </html>

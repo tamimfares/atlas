@@ -75,12 +75,12 @@
 
         <main class="py-4">
             @auth
-              <div class="container-fluid">
+              <div class="container">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-4 mb-3">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="#" class="text-decoration-none">Posts</a>
+                        <a href="{{ route('posts.index') }}" class="text-decoration-none">Posts</a>
                       </li>
                       <li class="list-group-item">
                         <a href="{{ route('categories.index') }}" class="text-decoration-none">Categories</a>

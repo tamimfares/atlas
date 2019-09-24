@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Alert;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePostRequest;
 
 class PostController extends Controller
 {
@@ -14,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('posts.index')->with('posts', Post::all());
     }
 
     /**
@@ -24,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -33,9 +35,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        //
+        // upload image
+        $image = $request->image->store('posts');
+
+        Post::create([
+          'title' => $request->title,
+          'description' => $request->description,
+          'content' => $request->content,
+          'image' => $image
+        ]);
+
+        Alert::success('Great!', 'Post created successfully')->autoClose(5000)->hideCloseButton()->position('center');
+        return redirect()->route('posts.index');
     }
 
     /**
